@@ -1,0 +1,150 @@
+import java.text.SimpleDateFormat
+
+// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy
+//compile group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.0-rc-1'
+
+defaultTasks 'hello'
+
+task ('hello').doLast {
+    println "Hi Gradle"
+}
+
+//Just code
+println "Hello World!"
+
+//Groovy class example
+def format = new SimpleDateFormat()
+format.setTimeZone(TimeZone.getTimeZone("UTF"))
+println "Hello " + format.format(new Date())
+
+//Groovy method
+sayHelloGradle()
+void sayHelloGradle() {
+    println "Hi, Gradle !!!"
+}
+
+//Groovy return 'option'
+println doubleIt(5)
+int doubleIt(int i) {
+    i * i
+}
+
+//Groovy def = Object
+println doubleDefIt(5)
+def doubleDefIt(int i) {
+    i * i
+}
+
+//Groovy string
+def s1 = "a string s1"
+println s1
+def s2 = 'a string s2'
+println s2
+
+//Groovy multiple string
+def str = """   Fist line
+Second line
+third line
+"""
+println str
+
+//Groovy string interpolation
+def x = 4
+println "x is $x"
+
+//Groovy strings
+def myCource = "gradle"
+println "My cource is ${myCource.toUpperCase()}"
+
+//Groovy properties
+class Person {
+    String name
+    String age
+
+    Person(name, age) {
+        this.name = name
+        this.age = age
+    }
+}
+
+def person = new Person("Groovy", 25)
+println person.age
+println person.name
+person.age = 26
+println person.age
+
+//Groovy Map
+def map = new HashMap<>()
+map.put("foo", "Groovy")
+println map.get("foo")
+map.foo = "Maven"
+println map.foo
+
+//Groovy closures
+def echoIt = {
+    println "Hello Groovy closure"
+}
+println echoIt()
+println echoIt
+echoIt()
+
+def echoItt = { par ->
+    println par
+}
+echoItt("Hiiiiii")
+
+def echoIttt = {println it}
+echoIttt("Hiiiiii IT")
+
+def echoItttt = { a, b, c ->
+    println a
+    println b
+    println c
+}
+echoItttt("Hi a", "Hi b", "Hi c")
+
+Closure closure = { a, b, c ->
+    println a
+    println b
+    println c
+}
+
+def oneArgMethod(closure) {
+    closure() * 2
+}
+println oneArgMethod {10}
+
+[1, 2, 3].each {
+    println it
+}
+
+//Groovy closure resolution
+class Personal {
+    String name = "Staff"
+
+    Closure nameSayer = {
+        println name
+    }
+}
+
+def personal = new Personal()
+personal.nameSayer()
+
+class Staff {
+    String name
+    String age
+
+    Staff(name, age) {
+        this.name = name
+        this.age = age
+    }
+
+    def execInside(Closure c) {
+        c.delegate = this
+        c()
+    }
+}
+
+def staff = new Staff("Fred", 35)
+println staff.name
+staff.execInside { println name }
