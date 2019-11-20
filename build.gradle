@@ -148,3 +148,9 @@ class Staff {
 def staff = new Staff("Fred", 35)
 println staff.name
 staff.execInside { println name }
+
+logger.info "It's Gradle Logger"
+
+apply {
+    println "HIIIIIIIII !!!"
+}
